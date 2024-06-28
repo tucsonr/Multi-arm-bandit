@@ -47,7 +47,7 @@ class _MyHomePageState extends State<MyHomePage> {
   int tempCounter = 0;
   String dropdownValue = 'Slot Machine A';
   int _payout = 0;
-  bool _slotMachineA = true;
+  bool _slotMachineA = false;
   bool _slotMachineB = false;
   bool _slotMachineC = false;
 
@@ -86,12 +86,12 @@ class _MyHomePageState extends State<MyHomePage> {
         if (rngTemp < 60) {
           //60% chance of 0 payout
           _payout = 0;
-        } else if (rngTemp < 90) {
-          //30% chance of 1-99 payout
+        } else if (rngTemp < 80) {
+          //20% chance of 1-99 payout
           _payout = rng.nextInt(100) + 1;
         } else {
           _payout = rng.nextInt(100) * 10 + rng.nextInt(10) + 100;
-          //10% chance of 100-999 payout
+          //20% chance of 100-999 payout
         }
       },
     );
@@ -114,7 +114,7 @@ class _MyHomePageState extends State<MyHomePage> {
       () {
         _payout = 0;
         _counter = 0;
-        _slotMachineA = false;
+        _slotMachineA = true;
         _slotMachineB = false;
         _slotMachineC = false;
         _assignSlot();
@@ -124,9 +124,9 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    debugPrint('$_slotMachineA');
-    debugPrint('$_slotMachineB');
-    debugPrint('$_slotMachineC');
+    debugPrint('slotMachineA =' '$_slotMachineA');
+    debugPrint('slotMachineB =' '$_slotMachineB');
+    debugPrint('slotMachineC =' '$_slotMachineC');
     //_assignSlot();
     // This method is rerun every time setState is called, for instance as done
     // by the _incrementCounter method above.
@@ -144,7 +144,7 @@ class _MyHomePageState extends State<MyHomePage> {
         // the App.build method, and use it to set our appbar title.
         title: Text(widget.title),
       ),
-      body: Center(
+      body: SingleChildScrollView(
         // Center is a layout widget. It takes a single child and positions it
         // in the middle of the parent.
         child: Column(
@@ -246,10 +246,12 @@ class _MyHomePageState extends State<MyHomePage> {
                         child: FloatingActionButton(
                           onPressed: () {
                             _incrementCounter();
-                            if (_slotMachineA == true) {
+                            if (_slotMachineA == false) {
                               _pullGood();
+                              debugPrint('pullGood');
                             } else {
                               _pullBad();
+                              debugPrint('pullBad');
                             }
                           },
                           tooltip: 'Try this slot machine',
@@ -262,8 +264,10 @@ class _MyHomePageState extends State<MyHomePage> {
                           onPressed: () {
                             _incrementCounter();
                             if (_slotMachineB == true) {
+                              debugPrint('pullGood');
                               _pullGood();
                             } else {
+                              debugPrint('pullBad');
                               _pullBad();
                             }
                           },
@@ -277,8 +281,10 @@ class _MyHomePageState extends State<MyHomePage> {
                           onPressed: () {
                             _incrementCounter();
                             if (_slotMachineC == true) {
+                              debugPrint('pullGood');
                               _pullGood();
                             } else {
+                              debugPrint('pullBad');
                               _pullBad();
                             }
                           },
